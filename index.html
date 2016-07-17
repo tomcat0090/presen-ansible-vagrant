@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Ansible と Vagrant<br />ことはじめ</h1>
+					<h3>開発環境の理想と現実</h3>
+					<p>
+						<small>Created by <a href="http://corezy.info">Terakawa Koji</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h2>目標</h2>
+					<ul>
+						<li>統一された開発環境</li>
+						<li>誰でもすぐに開発開始</li>
+						<li>秘伝のタレ『ダメ、絶対。』</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>課題1. 開発環境を統一したい</h2>
+					<h3>理想</h3>
+					<p>全員分、サーバを用意する</p>
+					<div class="fragment">
+						<h3>現実</h3>
+						<p>仮想環境による環境統一</p>
+					</div>
+					<p class="fragment">→ Virtualbox</p>
+				</section>
+
+				<section>
+					<h2>Virtualboxとは？</h2>
+					<p>コンピュータ上に仮想的なコンピュータ（VM : Vertical Machine）を作成し、動作させることができる。</p>
+					<p>VMは独立したコンピュータとして振舞うため、異なる環境上で同じ開発環境を構築することが可能になる。</p>
+					<p>類似ソフト:Hyper-V、VMwareなど</p>
+					<h4 class="fragment point">OSレベルでの開発環境を統一</h4>
+				</section>
+
+				<section>
+					<h2>課題2. 仮想環境の設定が煩雑</h2>
+					<h3>理想</h3>
+					<p>セットアップ要員を配備する</p>
+					<div class="fragment">
+						<h3>現実</h3>
+						<p>ツールによって、自動化 / 明文化</p>
+					</div>
+					<p class="fragment">→ Vagrant</p>
+				</section>
+
+				<section>
+					<h2>Vagrantとは？</h2>
+					<p>VMやAWSのEC2などパブリック・クラウド上の仮想マシンの設定を行うためのラッパーツール。</p>
+					<p>ネットワーク、フォルダ同期、SSHなどの設定周りを設定ファイルとして記述できるため、共有/管理が容易になる。</p>
+					<h4 class="fragment point">仮想環境の設定を統一</h4>
+				</section>
+
+				<section>
+					<h2>課題3. システムの初期設定に時間がかかる</h2>
+					<h3>理想</h3>
+					<p>完璧な手順書を用意しておく</p>
+					<div class="fragment">
+						<h3>現実</h3>
+						<p>構成管理ツールによって、自動化 / 明文化</p>
+					</div>
+					<p class="fragment">→ Ansible など</p>
+				</section>
+
+				<section>
+					<h2>Ansibleとは？</h2>
+					<p>ミドルウェア（apache、PHPなど）のインストールや、システムのセットアップなどを自動化する。</p>
+					<p>yamlという書式で記述するため、管理がしやすい。</p>
+					<p>類似ソフト:Chef、Puppet など</p>
+					<h4 class="fragment point">仮想環境をミドルウェアレベルで統一</h4>
+				</section>
+
+				<section>
+					<h2>ここまでのまとめ</h2>
+					<p>開発マシンには、VirtualboxとVagrantをインストールしておけばいい。</p>
+					<p>非プログラマでもらくらくセットアップ。</p>
+					<p>バージョン管理ソフトとの相性も◎</p>
+					<h4 class="fragment point">プロジェクトにアサインされたその日から開発できる</h4>
+				</section>
+
+				<section>
+					<h2>Vagrant ことはじめ</h2>
+					<ul>
+						<li>
+							コマンド
+							<ul>
+								<li>vagrant up</li>
+								<li>vagrant status</li>
+								<li>vagrant ssh</li>
+								<li>vagrant halt</li>
+								<li>vagrant destory</li>
+							</ul>
+						</li>
+						<li>Vagrantfile の書き方</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Vagrant コマンド（１）</h2>
+					<ul>
+						<li>
+							vagrant up
+							<p>
+								仮想マシンの起動
+							</p>
+						</li>
+						<li>
+							vagrant status
+							<p>
+								仮想マシンの状態を確認
+							</p>
+						</li>
+						<li>
+							vagrant ssh
+							<p>
+								仮想マシンにログイン
+							</p>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Vagrant コマンド（２）</h2>
+					<ul>
+						<li>
+							vagrant halt
+							<p>
+								仮想マシンの終了
+							</p>
+						</li>
+						<li>
+							vagrant destory
+							<p>
+								仮想マシンの削除
+							</p>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Vagrantfileの書き方</h2>
+					<p>FabarCastell プロジェクトで使用したVagrantfile</p>
+					<pre><code class="hljs" data-trim contenteditable>
+# Vagrantのバージョンを指定
+VAGRANTFILE_API_VERSION = "2"
+# Vagrantプラグインの vagrant-cachier があれば、キャッシュを使うという記述
+# このプラグインを使用することで、yumなどでキャッシュが作成され
+# プロビジョニング速度が向上する
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  # VMの定義名を指定
+  # 複数のVMを動かす際に必須になる
+  config.vm.define :develop do |develop|
+    develop.vm.hostname = "develop"
+    # 使用するbox 後述
+    develop.vm.box = "bento/centos6.5"
+    develop.vm.box_url = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
+
+    # ネットワーク設定1 ホストとゲスト間のネットワーク設定
+    develop.vm.network :private_network, ip: "192.168.33.20"
+
+    # ネットワーク設定2 グローバル（LAN内）で使用できるネットワーク設定
+#    develop.vm.network :public_network, ip: "192.168.1.26"
+#    develop.vm.network :public_network, :bridge => "en1: Thunderbolt Ethernet"
+
+    # ディレクトリの共有設定 ホストとゲストPCでディレクトリを同期します。
+    develop.vm.synced_folder "./develop", "/var/www/html/", :mount_options => ['dmode=775', 'fmode=664']
+    develop.vm.synced_folder "./develop", "/vagrant", :mount_options => ['dmode=775', 'fmode=775']
+    develop.vm.synced_folder "./ansible", "/vagrant/ansible", :mount_options => ['dmode=775', 'fmode=664']
+
+    # プロビジョニング設定
+    develop.vm.provision "shell", :path => "ansible/provision.sh"
+  end
+end
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Ansible ことはじめ</h2>
+					<p>Infrastructure as Code インフラのコード化</p>
+					<p>
+						必須ファイル
+						<ul>
+							<li>hosts</li>
+							<li>playbook.yml</li>
+						</ul>
+					</p>
+				</section>
+
+				<section>
+					<h2>hosts</h2>
+					<p>プロビジョニングを実行する対象マシン</p>
+					<pre><code class="hljs" data-trim contenteditable>
+[web]
+192.168.33.20
+					</code></pre>
+				</section>
+			</div>
+		</div>
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'reveal.js/plugin/markdown/marked.js' },
+					{ src: 'reveal.js/plugin/markdown/markdown.js' },
+					{ src: 'reveal.js/plugin/notes/notes.js', async: true },
+					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
