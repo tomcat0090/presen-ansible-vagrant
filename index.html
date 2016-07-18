@@ -7,7 +7,7 @@
 		<title>reveal.js</title>
 
 		<link rel="stylesheet" href="reveal.js/css/reveal.css">
-		<link rel="stylesheet" href="reveal.js/css/theme/black.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/solarized.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
@@ -168,7 +168,7 @@
 
 				<section>
 					<h2>Vagrantfileの書き方</h2>
-					<p>FabarCastell プロジェクトで使用したVagrantfile</p>
+					<p>記述例</p>
 					<pre><code class="hljs" data-trim contenteditable>
 # Vagrantのバージョンを指定
 VAGRANTFILE_API_VERSION = "2"
@@ -225,6 +225,54 @@ end
 					<pre><code class="hljs" data-trim contenteditable>
 [web]
 192.168.33.20
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>playbookの構成</h2>
+					<p>構成例（ベストプラクティスからはすこし調整しています）</p>
+					<pre><code class="hljs" data-trim contenteditable>
+try-ansible-best-practices
+├── site.yml
+├── development.yml # 対象毎に実行するロールを指定する
+├── ci.yml # 対象毎に実行するロールを指定する
+├── setup.yml # プロジェクトのセットアップ用
+├── update.yml # プロジェクトのアップデート用
+├── vars
+│   └── プロジェクト.yml # プロジェクト毎の定数
+└── roles
+    └── common
+        ├── handlers # notifyが指定されると、ここに記述されたタスクを実行する
+        │   └── main.yml
+        ├── tasks # このロールで実行されるタスク
+        │   └── main.yml
+        ├── vars # ロールごとの定数
+        │   └── main.yml
+        └── templates # templateモジュールで使用される雛形をおく
+            └── php.ini.j2
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>playbook.yml</h2>
+					<p>yumモジュール</p>
+					<pre><code class="hljs" data-trim contenteditable>
+- hosts: web
+  user: root
+  tasks:
+  - name: Apacheをインストール
+    yum: name=httpd state=present
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>playbook.yml</h2>
+					<p>templateモジュール</p>
+					<pre><code class="hljs" data-trim contenteditable>
+- name: 設定の差し替え
+  template: src=php.ini.j2
+            dest=/etc/php.ini
+            owner=vagrant group=vagrant mode=0644
 					</code></pre>
 				</section>
 			</div>
