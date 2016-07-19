@@ -234,23 +234,23 @@ end
 					<h2>playbookの構成</h2>
 					<p>構成例（ベストプラクティスからはすこし調整しています）</p>
 					<pre><code class="hljs" data-trim contenteditable>
-try-ansible-best-practices
+ansible/
 ├── site.yml
 ├── development.yml # 対象毎に実行するロールを指定する
 ├── ci.yml # 対象毎に実行するロールを指定する
 ├── setup.yml # プロジェクトのセットアップ用
 ├── update.yml # プロジェクトのアップデート用
-├── vars
-│   └── プロジェクト.yml # プロジェクト毎の定数
-└── roles
-    └── common
-        ├── handlers # notifyが指定されると、ここに記述されたタスクを実行する
-        │   └── main.yml
-        ├── tasks # このロールで実行されるタスク
-        │   └── main.yml
-        ├── vars # ロールごとの定数
-        │   └── main.yml
-        └── templates # templateモジュールで使用される雛形をおく
+├── vars/
+│  └── プロジェクト.yml # プロジェクト毎の定数
+└── roles/
+    └── common/
+        ├── handlers/ # notifyが指定されると、ここに記述されたタスクを実行する
+        │  └── main.yml
+        ├── tasks/ # このロールで実行されるタスク
+        │  └── main.yml
+        ├── vars/ # ロールごとの定数
+        │  └── main.yml
+        └── templates/ # templateモジュールで使用される雛形をおく
             └── php.ini.j2
 					</code></pre>
 				</section>
