@@ -176,6 +176,7 @@ VAGRANTFILE_API_VERSION = "2"
 # Vagrantプラグインの vagrant-cachier があれば、キャッシュを使うという記述
 # このプラグインを使用することで、yumなどでキャッシュが作成され
 # プロビジョニング速度が向上する
+# vagrant plugin install vagrant-cachier
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   if Vagrant.has_plugin?("vagrant-cachier")
     config.cache.scope = :box
@@ -275,6 +276,17 @@ try-ansible-best-practices
             dest=/etc/php.ini
             owner=vagrant group=vagrant mode=0644
 					</code></pre>
+				</section>
+
+				<section>
+					<h2>実装解説</h2>
+				</section>
+
+				<section>
+					<h3>ご清聴ありがとうございました。</h3>
+					<p>このスライドは github にて公開しています。</p>
+					<p>プルリク、ご指摘等々お待ちしています。</p>
+					<p><a href="https://github.com/tomcat0090/presen-ansible-vagrant">https://github.com/tomcat0090/presen-ansible-vagrant</a></p>
 				</section>
 			</div>
 		</div>
